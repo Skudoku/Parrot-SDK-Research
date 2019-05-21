@@ -9,7 +9,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Vision/Vision.h>
 
-@interface MiniDroneVC ()<MiniDroneDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, UITextFieldDelegate>
+@interface MiniDroneVC ()<MiniDroneDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 
 @property (nonatomic, strong) UIAlertView *connectionAlertView;
 @property (nonatomic, strong) UIAlertController *downloadAlertController;
@@ -48,7 +48,14 @@
     [_miniDrone setDelegate:self];
     [_miniDrone connect];
     
-    self.stickyTimeTextField.delegate = self;
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar sizeToFit];
+    
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self.stickyTimeTextField action:@selector(resignFirstResponder)];
+    
+    toolbar.items = @[flex, doneButton];
+    self.stickyTimeTextField.inputAccessoryView = toolbar;
     
     _connectionAlertView = [[UIAlertView alloc] initWithTitle:[_service name] message:@"Connecting ..."
                                            delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
@@ -91,11 +98,6 @@
     if ([_miniDrone connectionState] != ARCONTROLLER_DEVICE_STATE_RUNNING) {
         //[_connectionAlertView show];
     }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

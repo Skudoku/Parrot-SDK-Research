@@ -771,13 +771,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sticky in ms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZp-EF-DKi">
-                                        <rect key="frame" x="590" y="0.0" width="69" height="15"/>
+                                        <rect key="frame" x="578" y="0.0" width="69" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y09-KZ-avx">
-                                        <rect key="frame" x="590" y="19" width="69" height="30"/>
+                                        <rect key="frame" x="578" y="19" width="69" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
@@ -793,8 +793,8 @@
                                     <constraint firstItem="LCp-Lz-nR0" firstAttribute="top" secondItem="hVc-Ce-iDi" secondAttribute="top" constant="10" id="axB-fK-ZQL"/>
                                     <constraint firstItem="y09-KZ-avx" firstAttribute="width" secondItem="mZp-EF-DKi" secondAttribute="width" id="cfm-zK-8pl"/>
                                     <constraint firstItem="Cc0-Ge-4OW" firstAttribute="top" secondItem="hVc-Ce-iDi" secondAttribute="top" id="kBe-M8-Lw3"/>
-                                    <constraint firstAttribute="trailing" secondItem="mZp-EF-DKi" secondAttribute="trailing" constant="8" id="m7F-VS-4HO"/>
-                                    <constraint firstAttribute="trailing" secondItem="y09-KZ-avx" secondAttribute="trailing" constant="8" id="oBe-kN-v4D"/>
+                                    <constraint firstAttribute="trailing" secondItem="mZp-EF-DKi" secondAttribute="trailing" constant="20" id="m7F-VS-4HO"/>
+                                    <constraint firstAttribute="trailing" secondItem="y09-KZ-avx" secondAttribute="trailing" constant="20" id="oBe-kN-v4D"/>
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNJ-87-4C4">
