@@ -143,8 +143,12 @@
 {
     BOOL success = !_lastDecodeHasFailed;
     
-    
     if (success && _canDisplayVideo) {
+        
+        NSData *imageData = [NSData dataWithBytes:frame->data length:frame->used];
+        UIImage *image = [UIImage imageWithData:imageData];
+        [self detectFace:image.CIImage];
+        
         CMBlockBufferRef blockBufferRef = NULL;
         //CMSampleTimingInfo timing = kCMTimingInfoInvalid;
         CMSampleBufferRef sampleBufferRef = NULL;
