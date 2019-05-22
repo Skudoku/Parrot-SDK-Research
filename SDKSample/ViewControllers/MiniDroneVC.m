@@ -424,56 +424,91 @@
     self.powerLabel.text = [NSString stringWithFormat:@"%g", roundf(self.powerSlider.value)];
 }
 
-
+- (void)stopDrone {
+    [_miniDrone setFlag:0];
+    [_miniDrone setGaz:0];
+    [_miniDrone setYaw:0];
+    [_miniDrone setPitch:0];
+}
 
 - (IBAction)gazUpTouchDown:(id)sender {
     [_miniDrone setGaz:roundf(self.powerSlider.value)];
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) {
+        double delay = [self.stickyTimeTextField.text doubleValue];
+        [self performSelector:@selector(stopDrone) withObject:nil afterDelay:delay / 1000];
+    }
 }
 
 - (IBAction)gazDownTouchDown:(id)sender {
     [_miniDrone setGaz:-roundf(self.powerSlider.value)];
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) {
+        double delay = [self.stickyTimeTextField.text doubleValue];
+        [self performSelector:@selector(stopDrone) withObject:nil afterDelay:delay / 1000];
+    }
 }
 
 - (IBAction)gazUpTouchUp:(id)sender {
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) return;
     [_miniDrone setGaz:0];
 }
 
 - (IBAction)gazDownTouchUp:(id)sender {
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) return;
     [_miniDrone setGaz:0];
 }
 
 - (IBAction)yawLeftTouchDown:(id)sender {
     [_miniDrone setYaw:-roundf(self.powerSlider.value)];
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) {
+        double delay = [self.stickyTimeTextField.text doubleValue];
+        [self performSelector:@selector(stopDrone) withObject:nil afterDelay:delay / 1000];
+    }
 }
 
 - (IBAction)yawRightTouchDown:(id)sender {
     [_miniDrone setYaw:roundf(self.powerSlider.value)];
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) {
+        double delay = [self.stickyTimeTextField.text doubleValue];
+        [self performSelector:@selector(stopDrone) withObject:nil afterDelay:delay / 1000];
+    }
 }
 
 - (IBAction)yawLeftTouchUp:(id)sender {
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) return;
     [_miniDrone setYaw:0];
 }
 
 - (IBAction)yawRightTouchUp:(id)sender {
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) return;
     [_miniDrone setYaw:0];
 }
 
 - (IBAction)rollLeftTouchDown:(id)sender {
     [_miniDrone setFlag:1];
     [_miniDrone setRoll:-roundf(self.powerSlider.value)];
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) {
+        double delay = [self.stickyTimeTextField.text doubleValue];
+        [self performSelector:@selector(stopDrone) withObject:nil afterDelay:delay / 1000];
+    }
 }
 
 - (IBAction)rollRightTouchDown:(id)sender {
     [_miniDrone setFlag:1];
     [_miniDrone setRoll:roundf(self.powerSlider.value)];
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) {
+        double delay = [self.stickyTimeTextField.text doubleValue];
+        [self performSelector:@selector(stopDrone) withObject:nil afterDelay:delay / 1000];
+    }
 }
 
 - (IBAction)rollLeftTouchUp:(id)sender {
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) return;
     [_miniDrone setFlag:0];
     [_miniDrone setRoll:0];
 }
 
 - (IBAction)rollRightTouchUp:(id)sender {
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) return;
     [_miniDrone setFlag:0];
     [_miniDrone setRoll:0];
 }
@@ -481,19 +516,29 @@
 - (IBAction)pitchForwardTouchDown:(id)sender {
     [_miniDrone setFlag:1];
     [_miniDrone setPitch:roundf(self.powerSlider.value)];
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) {
+        double delay = [self.stickyTimeTextField.text doubleValue];
+        [self performSelector:@selector(stopDrone) withObject:nil afterDelay:delay / 1000];
+    }
 }
 
 - (IBAction)pitchBackTouchDown:(id)sender {
     [_miniDrone setFlag:1];
     [_miniDrone setPitch:-roundf(self.powerSlider.value)];
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) {
+        double delay = [self.stickyTimeTextField.text doubleValue];
+        [self performSelector:@selector(stopDrone) withObject:nil afterDelay:delay / 1000];
+    }
 }
 
 - (IBAction)pitchForwardTouchUp:(id)sender {
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) return;
     [_miniDrone setFlag:0];
     [_miniDrone setPitch:0];
 }
 
 - (IBAction)pitchBackTouchUp:(id)sender {
+    if (![self.stickyTimeTextField.text isEqualToString:@""]) return;
     [_miniDrone setFlag:0];
     [_miniDrone setPitch:0];
 }
