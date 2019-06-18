@@ -734,7 +734,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQn-KO-2DI" customClass="H264VideoView">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQn-KO-2DI" customClass="H264VideoView">
                                 <rect key="frame" x="0.0" y="32" width="667" height="343"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -787,15 +787,28 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUm-Ds-EwW">
+                                        <rect key="frame" x="8" y="305" width="249" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Tmp-BQ-3tB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="LCp-Lz-nR0" firstAttribute="centerX" secondItem="hVc-Ce-iDi" secondAttribute="centerX" id="1BA-XD-H2O"/>
+                                    <constraint firstItem="ZUm-Ds-EwW" firstAttribute="leading" secondItem="hVc-Ce-iDi" secondAttribute="leading" constant="8" id="20n-h8-nrt"/>
                                     <constraint firstAttribute="bottom" secondItem="Ajc-Dv-h7j" secondAttribute="bottom" constant="5" id="JG2-l9-jAU"/>
+                                    <constraint firstItem="Ajc-Dv-h7j" firstAttribute="leading" secondItem="ZUm-Ds-EwW" secondAttribute="trailing" constant="8" id="Nxi-Sx-XS7"/>
                                     <constraint firstItem="Cc0-Ge-4OW" firstAttribute="centerX" secondItem="hVc-Ce-iDi" secondAttribute="centerX" id="OYy-lC-XlT"/>
                                     <constraint firstItem="y09-KZ-avx" firstAttribute="top" secondItem="mZp-EF-DKi" secondAttribute="bottom" id="ZyI-X4-zdG"/>
                                     <constraint firstItem="mZp-EF-DKi" firstAttribute="top" secondItem="hVc-Ce-iDi" secondAttribute="top" id="aTc-PC-m8L"/>
                                     <constraint firstItem="LCp-Lz-nR0" firstAttribute="top" secondItem="hVc-Ce-iDi" secondAttribute="top" constant="10" id="axB-fK-ZQL"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZUm-Ds-EwW" secondAttribute="bottom" constant="8" id="bRn-ZY-yOc"/>
                                     <constraint firstItem="y09-KZ-avx" firstAttribute="width" secondItem="mZp-EF-DKi" secondAttribute="width" id="cfm-zK-8pl"/>
                                     <constraint firstItem="Cc0-Ge-4OW" firstAttribute="top" secondItem="hVc-Ce-iDi" secondAttribute="top" id="kBe-M8-Lw3"/>
                                     <constraint firstAttribute="trailing" secondItem="mZp-EF-DKi" secondAttribute="trailing" constant="20" id="m7F-VS-4HO"/>
@@ -1151,6 +1164,7 @@
                     <connections>
                         <outlet property="batteryLabel" destination="av5-0p-FAY" id="e6C-aI-2GJ"/>
                         <outlet property="cameraView" destination="hVc-Ce-iDi" id="rSy-F7-09t"/>
+                        <outlet property="directionLabel" destination="ZUm-Ds-EwW" id="3eg-2h-Du6"/>
                         <outlet property="downloadMediasBt" destination="nNJ-87-4C4" id="Y9p-0d-6on"/>
                         <outlet property="powerLabel" destination="Cc0-Ge-4OW" id="j4K-fB-VLu"/>
                         <outlet property="powerSlider" destination="LCp-Lz-nR0" id="Ong-Js-dXB"/>

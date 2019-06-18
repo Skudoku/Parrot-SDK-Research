@@ -124,11 +124,13 @@
     //create req
     if (@available(iOS 11.0, *)) {
         VNDetectFaceRectanglesRequest *faceDetectionReq = [VNDetectFaceRectanglesRequest new];
+        VNDetectRectanglesRequest *rectDetectionReq = [VNDetectRectanglesRequest new];
+        rectDetectionReq.minimumConfidence = 0.1;
         NSDictionary *d = [[NSDictionary alloc] init];
         //req handler
         VNImageRequestHandler *handler = [[VNImageRequestHandler alloc] initWithCIImage:image options:d];
         //send req to handler
-        [handler performRequests:@[faceDetectionReq] error:nil];
+        [handler performRequests:@[faceDetectionReq, rectDetectionReq] error:nil];
         
         //is there a face?
         for(VNFaceObservation *observation in faceDetectionReq.results){
@@ -136,6 +138,20 @@
                 NSLog(@"face detected!");
             }
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            for (VNRectangleObservation *observation in rectDetectionReq.results) {
+                if (observation) {
+//                    NSArray *points = @[[NSValue valueWithCGPoint:observation.topLeft], [NSValue valueWithCGPoint:observation.topRight], [NSValue valueWithCGPoint:observation.bottomRight], [NSValue valueWithCGPoint:observation.bottomLeft]];
+//                    NSArray *convertedPoints = [self convertedPointsFromCamera:points];
+//                    CAShapeLayer *layer = [self drawPolygon:convertedPoints withColor:[UIColor blueColor]];
+//                    [self.cameraView.layer addSublayer:layer];
+                    //NSLog(@"Average color: %@", [self averageColorForImage:image inArea:layer.frame]);
+                    NSLog(@"Rectangle detected!");
+                }
+            }
+        });
     }
 }
 
@@ -144,10 +160,6 @@
     BOOL success = !_lastDecodeHasFailed;
     
     if (success && _canDisplayVideo) {
-        
-        NSData *imageData = [NSData dataWithBytes:frame->data length:frame->used];
-        UIImage *image = [UIImage imageWithData:imageData];
-        [self detectFace:image.CIImage];
         
         CMBlockBufferRef blockBufferRef = NULL;
         //CMSampleTimingInfo timing = kCMTimingInfoInvalid;
@@ -201,7 +213,11 @@
             dispatch_sync(dispatch_get_main_queue(), ^{
                 if (_canDisplayVideo)
                 {
+                    [self screenshotOfVideoStream:sampleBufferRef];
                     [_videoLayer enqueueSampleBuffer:sampleBufferRef];
+                    UIImage *img = [self imageFromLayer:_videoLayer];
+                    CIImage *ciImage = [CIImage imageWithCGImage:img.CGImage];
+                    [self detectFace:ciImage];
                 }
             });
         }
@@ -245,6 +261,18 @@
             _formatDesc = NULL;
         }
     });
+}
+
+- (UIImage *)imageFromLayer:(CALayer *)layer
+{
+    UIGraphicsBeginImageContextWithOptions(layer.frame.size, NO, 0);
+    
+    [layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *outputImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return outputImage;
 }
 
 #pragma mark - notifications

@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *powerLabel;
 @property (weak, nonatomic) IBOutlet UITextField *stickyTimeTextField;
 
+@property (weak, nonatomic) IBOutlet UILabel *directionLabel;
 
 @end
 
@@ -287,6 +288,7 @@
 }
 
 - (BOOL)miniDrone:(MiniDrone*)bebopDrone configureDecoder:(ARCONTROLLER_Stream_Codec_t)codec {
+    
     return [_videoView configureDecoder:codec];
 }
 
