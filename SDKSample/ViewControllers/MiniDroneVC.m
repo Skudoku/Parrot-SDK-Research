@@ -187,7 +187,7 @@
                     CAShapeLayer *layer = [self drawPolygon:convertedPoints withColor:[UIColor blueColor]];
                     [self.cameraView.layer addSublayer:layer];
                     //NSLog(@"Average color: %@", [self averageColorForImage:image inArea:layer.frame]);
-                    NSLog(@"Rectangle detected!");
+                    //NSLog(@"Rectangle detected!");
                 }
             }
         });
@@ -221,6 +221,18 @@
     layer.strokeColor = color.CGColor;
     layer.lineWidth = 2;
     UIBezierPath *path = [UIBezierPath new];
+    if (points.count == 4) {
+        NSArray *xs = @[[NSNumber numberWithInteger:[points[0] CGPointValue].x], [NSNumber numberWithInteger:[points[1] CGPointValue].x], [NSNumber numberWithInteger:[points[2] CGPointValue].x], [NSNumber numberWithInteger:[points[3] CGPointValue].x]];
+        NSArray *ys = @[[NSNumber numberWithInteger:[points[0] CGPointValue].y], [NSNumber numberWithInteger:[points[1] CGPointValue].y], [NSNumber numberWithInteger:[points[2] CGPointValue].y], [NSNumber numberWithInteger:[points[3] CGPointValue].y]];
+        
+        NSNumber *minX = [xs valueForKeyPath:@"@min.self"];
+        NSNumber *minY = [ys valueForKeyPath:@"@min.self"];
+        
+        NSNumber *maxX = [xs valueForKeyPath:@"@max.self"];
+        NSNumber *maxY = [ys valueForKeyPath:@"@max.self"];
+        
+        NSLog(@"\nminX: %@\nmaxX: %@\nminY: %@\nmaxY: %@", minX, maxX, minY, maxY);
+    }
     [path moveToPoint:[[points lastObject] CGPointValue]];
     for (NSValue *val in points) {
         [path addLineToPoint:[val CGPointValue]];
