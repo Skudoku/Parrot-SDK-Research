@@ -9,6 +9,18 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Vision/Vision.h>
 
+typedef enum ObservationLocation {
+    TopLeft,
+    Left,
+    BottomLeft,
+    Top,
+    Center,
+    Bottom,
+    TopRight,
+    Right,
+    BottomRight
+} ObservationLocation;
+
 @interface MiniDroneVC ()<MiniDroneDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 
 @property (nonatomic, strong) UIAlertView *connectionAlertView;
@@ -36,6 +48,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *stickyTimeTextField;
 
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
+
+@property (nonatomic) ObservationLocation observationLocation;
 
 @end
 
@@ -254,22 +268,31 @@
     
     if (xOffset < -20 && yOffset < -20) {
         self.directionLabel.text = @"Top Left";
+        self.observationLocation = TopLeft;
     } else if (xOffset < -20 && yOffset > -20 && yOffset < 20) {
         self.directionLabel.text = @"Left";
+        self.observationLocation = Left;
     } else if (xOffset < -20 && yOffset > 20) {
         self.directionLabel.text = @"Bottom Left";
+        self.observationLocation = BottomLeft;
     } else if (xOffset > -20 && xOffset < 20 && yOffset < -20) {
         self.directionLabel.text = @"Top";
+        self.observationLocation = Top;
     } else if (xOffset > -20 && xOffset < 20 && yOffset > 20) {
         self.directionLabel.text = @"Bottom";
+        self.observationLocation = Bottom;
     } else if (xOffset > 20 && yOffset < -20) {
         self.directionLabel.text = @"Top Right";
+        self.observationLocation = TopRight;
     } else if (xOffset > 20 && yOffset > -20 && yOffset < 20) {
         self.directionLabel.text = @"Right";
+        self.observationLocation = Right;
     } else if (xOffset > 20 && yOffset > 20) {
         self.directionLabel.text = @"Bottom Right";
+        self.observationLocation = BottomRight;
     } else {
         self.directionLabel.text = @"Center";
+        self.observationLocation = Center;
     }
     NSLog(@"\nxOffset: %f\nyOffset: %f", xOffset, yOffset);
     //NSLog(@"Cameraview centerX: %f\nCameraview centerY: %f", CGRectGetMidX(self.cameraView.layer.frame), CGRectGetMidY(self.cameraView.layer.frame));
