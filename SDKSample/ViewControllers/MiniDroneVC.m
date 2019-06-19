@@ -217,7 +217,7 @@
 
 - (CAShapeLayer *)drawPolygon:(NSArray<NSValue *> *)points withColor:(UIColor *)color {
     CAShapeLayer *layer = [CAShapeLayer new];
-    layer.fillColor = nil;
+    layer.fillColor = [[UIColor colorWithRed:0.0 / 255.0 green:0.0 / 255.0 blue:255.0 / 255.0 alpha:0.15] CGColor];
     layer.strokeColor = color.CGColor;
     layer.lineWidth = 2;
     UIBezierPath *path = [UIBezierPath new];
