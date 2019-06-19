@@ -231,7 +231,14 @@
         NSNumber *maxX = [xs valueForKeyPath:@"@max.self"];
         NSNumber *maxY = [ys valueForKeyPath:@"@max.self"];
         
-        NSLog(@"\nminX: %@\nmaxX: %@\nminY: %@\nmaxY: %@", minX, maxX, minY, maxY);
+        NSNumber *midX = [NSNumber numberWithInt:([minX intValue] + [maxX intValue]) / 2];
+        NSNumber *midY = [NSNumber numberWithInt:([minY intValue] + [maxY intValue]) / 2];
+        
+        CGPoint polyCenter = CGPointMake(midX.floatValue, midY.floatValue);
+        
+        [self determinePositionWith:polyCenter];
+//        NSLog(@"Centerpoint: %@", NSStringFromCGPoint(polyCenter));
+//        NSLog(@"\nminX: %@\nmaxX: %@\nminY: %@\nmaxY: %@", minX, maxX, minY, maxY);
     }
     [path moveToPoint:[[points lastObject] CGPointValue]];
     for (NSValue *val in points) {
@@ -239,6 +246,33 @@
     }
     [layer setPath:path.CGPath];
     return layer;
+}
+
+- (void)determinePositionWith:(CGPoint)point {
+    CGFloat xOffset = point.x - CGRectGetMidX(self.cameraView.layer.frame);
+    CGFloat yOffset = point.y - CGRectGetMidY(self.cameraView.layer.frame);
+    
+    if (xOffset < -20 && yOffset < -20) {
+        self.directionLabel.text = @"Top Left";
+    } else if (xOffset < -20 && yOffset > -20 && yOffset < 20) {
+        self.directionLabel.text = @"Left";
+    } else if (xOffset < -20 && yOffset > 20) {
+        self.directionLabel.text = @"Bottom Left";
+    } else if (xOffset > -20 && xOffset < 20 && yOffset < -20) {
+        self.directionLabel.text = @"Top";
+    } else if (xOffset > -20 && xOffset < 20 && yOffset > 20) {
+        self.directionLabel.text = @"Bottom";
+    } else if (xOffset > 20 && yOffset < -20) {
+        self.directionLabel.text = @"Top Right";
+    } else if (xOffset > 20 && yOffset > -20 && yOffset < 20) {
+        self.directionLabel.text = @"Right";
+    } else if (xOffset > 20 && yOffset > 20) {
+        self.directionLabel.text = @"Bottom Right";
+    } else {
+        self.directionLabel.text = @"Center";
+    }
+    NSLog(@"\nxOffset: %f\nyOffset: %f", xOffset, yOffset);
+    //NSLog(@"Cameraview centerX: %f\nCameraview centerY: %f", CGRectGetMidX(self.cameraView.layer.frame), CGRectGetMidY(self.cameraView.layer.frame));
 }
 
 - (UIColor *)averageColorForImage:(CIImage *)ciImage inArea:(CGRect)area {
