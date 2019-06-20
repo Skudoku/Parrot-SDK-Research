@@ -295,12 +295,19 @@ typedef enum ObservationLocation {
         self.directionLabel.text = @"Center";
         self.observationLocation = Center;
     }
+    [self handleLocation:self.observationLocation];
     NSLog(@"\nxOffset: %f\nyOffset: %f", xOffset, yOffset);
     //NSLog(@"Cameraview centerX: %f\nCameraview centerY: %f", CGRectGetMidX(self.cameraView.layer.frame), CGRectGetMidY(self.cameraView.layer.frame));
 }
 
+- (IBAction)navigationToCenterSwitchChanged:(id)sender {
+    [self stopDrone];
+}
+
+
 - (void)handleLocation:(ObservationLocation)location {
     if (!self.navigateToCenterSwitch.isOn) return;
+    NSLog(@"\nhandleLocation: %u", location);
     switch (location) {
         case TopLeft:
             [_miniDrone setRoll:-20];
