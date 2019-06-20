@@ -298,6 +298,32 @@ typedef enum ObservationLocation {
     //NSLog(@"Cameraview centerX: %f\nCameraview centerY: %f", CGRectGetMidX(self.cameraView.layer.frame), CGRectGetMidY(self.cameraView.layer.frame));
 }
 
+- (void)handleLocation:(ObservationLocation)location {
+    switch (location) {
+        case TopLeft:
+            
+            break;
+        case Left:
+            break;
+        case BottomLeft:
+            break;
+        case Top:
+            break;
+        case Center:
+            break;
+        case Bottom:
+            break;
+        case TopRight:
+            break;
+        case Right:
+            break;
+        case BottomRight:
+            break;
+        default:
+            break;
+    }
+}
+
 - (UIColor *)averageColorForImage:(CIImage *)ciImage inArea:(CGRect)area {
     CIVector *extentVector = [CIVector vectorWithX:ciImage.extent.origin.x Y:ciImage.extent.origin.y Z:ciImage.extent.size.width W:ciImage.extent.size.height];
     CIFilter *extentFilter = [CIFilter filterWithName:@"CIAreaAverage" withInputParameters:@{kCIInputImageKey: ciImage, kCIInputExtentKey: extentVector}];
