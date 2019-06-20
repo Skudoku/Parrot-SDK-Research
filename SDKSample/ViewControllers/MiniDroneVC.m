@@ -50,6 +50,7 @@ typedef enum ObservationLocation {
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
 
 @property (nonatomic) ObservationLocation observationLocation;
+@property (weak, nonatomic) IBOutlet UISwitch *navigateToCenterSwitch;
 
 @end
 
@@ -172,7 +173,7 @@ typedef enum ObservationLocation {
     if (@available(iOS 11.0, *)) {
         VNDetectFaceRectanglesRequest *faceDetectionReq = [VNDetectFaceRectanglesRequest new];
         VNDetectRectanglesRequest *rectDetectionReq = [VNDetectRectanglesRequest new];
-        rectDetectionReq.minimumConfidence = 0.6;
+        rectDetectionReq.minimumConfidence = 0.2;
         NSDictionary *d = [[NSDictionary alloc] init];
         //req handler
         VNImageRequestHandler *handler = [[VNImageRequestHandler alloc] initWithCIImage:image options:d];
@@ -266,28 +267,28 @@ typedef enum ObservationLocation {
     CGFloat xOffset = point.x - CGRectGetMidX(self.cameraView.layer.frame);
     CGFloat yOffset = point.y - CGRectGetMidY(self.cameraView.layer.frame);
     
-    if (xOffset < -20 && yOffset < -20) {
+    if (xOffset < -40 && yOffset < -40) {
         self.directionLabel.text = @"Top Left";
         self.observationLocation = TopLeft;
-    } else if (xOffset < -20 && yOffset > -20 && yOffset < 20) {
+    } else if (xOffset < -40 && yOffset > -40 && yOffset < 40) {
         self.directionLabel.text = @"Left";
         self.observationLocation = Left;
-    } else if (xOffset < -20 && yOffset > 20) {
+    } else if (xOffset < -40 && yOffset > 40) {
         self.directionLabel.text = @"Bottom Left";
         self.observationLocation = BottomLeft;
-    } else if (xOffset > -20 && xOffset < 20 && yOffset < -20) {
+    } else if (xOffset > -40 && xOffset < 40 && yOffset < -40) {
         self.directionLabel.text = @"Top";
         self.observationLocation = Top;
-    } else if (xOffset > -20 && xOffset < 20 && yOffset > 20) {
+    } else if (xOffset > -40 && xOffset < 40 && yOffset > 40) {
         self.directionLabel.text = @"Bottom";
         self.observationLocation = Bottom;
-    } else if (xOffset > 20 && yOffset < -20) {
+    } else if (xOffset > 40 && yOffset < -40) {
         self.directionLabel.text = @"Top Right";
         self.observationLocation = TopRight;
-    } else if (xOffset > 20 && yOffset > -20 && yOffset < 20) {
+    } else if (xOffset > 40 && yOffset > -40 && yOffset < 40) {
         self.directionLabel.text = @"Right";
         self.observationLocation = Right;
-    } else if (xOffset > 20 && yOffset > 20) {
+    } else if (xOffset > 40 && yOffset > 40) {
         self.directionLabel.text = @"Bottom Right";
         self.observationLocation = BottomRight;
     } else {
@@ -299,25 +300,43 @@ typedef enum ObservationLocation {
 }
 
 - (void)handleLocation:(ObservationLocation)location {
+    if (!self.navigateToCenterSwitch.isOn) return;
     switch (location) {
         case TopLeft:
-            
+            [_miniDrone setRoll:-20];
+            [_miniDrone setGaz:-20];
             break;
         case Left:
+            [_miniDrone setRoll:-20];
+            [_miniDrone setGaz:0];
             break;
         case BottomLeft:
+            [_miniDrone setRoll:-20];
+            [_miniDrone setGaz:20];
             break;
         case Top:
+            [_miniDrone setRoll:0];
+            [_miniDrone setGaz:-20];
             break;
         case Center:
+            [_miniDrone setRoll:0];
+            [_miniDrone setGaz:0];
             break;
         case Bottom:
+            [_miniDrone setRoll:-20];
+            [_miniDrone setGaz:-20];
             break;
         case TopRight:
+            [_miniDrone setRoll:20];
+            [_miniDrone setGaz:-20];
             break;
         case Right:
+            [_miniDrone setRoll:20];
+            [_miniDrone setGaz:0];
             break;
         case BottomRight:
+            [_miniDrone setRoll:20];
+            [_miniDrone setGaz:20];
             break;
         default:
             break;

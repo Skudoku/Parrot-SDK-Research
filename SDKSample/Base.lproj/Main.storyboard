@@ -797,14 +797,26 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CUk-i9-jyw">
+                                        <rect key="frame" x="8" y="266" width="51" height="31"/>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Navigate to center" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LzW-rz-1ty">
+                                        <rect key="frame" x="65" y="274.5" width="104.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="LCp-Lz-nR0" firstAttribute="centerX" secondItem="hVc-Ce-iDi" secondAttribute="centerX" id="1BA-XD-H2O"/>
                                     <constraint firstItem="ZUm-Ds-EwW" firstAttribute="leading" secondItem="hVc-Ce-iDi" secondAttribute="leading" constant="8" id="20n-h8-nrt"/>
                                     <constraint firstAttribute="bottom" secondItem="Ajc-Dv-h7j" secondAttribute="bottom" constant="5" id="JG2-l9-jAU"/>
+                                    <constraint firstItem="ZUm-Ds-EwW" firstAttribute="top" secondItem="CUk-i9-jyw" secondAttribute="bottom" constant="8" id="Kb5-6O-iJy"/>
                                     <constraint firstItem="Ajc-Dv-h7j" firstAttribute="leading" secondItem="ZUm-Ds-EwW" secondAttribute="trailing" constant="8" id="Nxi-Sx-XS7"/>
                                     <constraint firstItem="Cc0-Ge-4OW" firstAttribute="centerX" secondItem="hVc-Ce-iDi" secondAttribute="centerX" id="OYy-lC-XlT"/>
+                                    <constraint firstItem="CUk-i9-jyw" firstAttribute="leading" secondItem="hVc-Ce-iDi" secondAttribute="leading" constant="8" id="RDo-bd-Xil"/>
+                                    <constraint firstItem="LzW-rz-1ty" firstAttribute="leading" secondItem="CUk-i9-jyw" secondAttribute="trailing" constant="8" id="T8W-MI-oVj"/>
                                     <constraint firstItem="y09-KZ-avx" firstAttribute="top" secondItem="mZp-EF-DKi" secondAttribute="bottom" id="ZyI-X4-zdG"/>
                                     <constraint firstItem="mZp-EF-DKi" firstAttribute="top" secondItem="hVc-Ce-iDi" secondAttribute="top" id="aTc-PC-m8L"/>
                                     <constraint firstItem="LCp-Lz-nR0" firstAttribute="top" secondItem="hVc-Ce-iDi" secondAttribute="top" constant="10" id="axB-fK-ZQL"/>
@@ -813,6 +825,7 @@
                                     <constraint firstItem="Cc0-Ge-4OW" firstAttribute="top" secondItem="hVc-Ce-iDi" secondAttribute="top" id="kBe-M8-Lw3"/>
                                     <constraint firstAttribute="trailing" secondItem="mZp-EF-DKi" secondAttribute="trailing" constant="20" id="m7F-VS-4HO"/>
                                     <constraint firstAttribute="trailing" secondItem="y09-KZ-avx" secondAttribute="trailing" constant="20" id="oBe-kN-v4D"/>
+                                    <constraint firstItem="LzW-rz-1ty" firstAttribute="centerY" secondItem="CUk-i9-jyw" secondAttribute="centerY" id="r8c-lX-Tps"/>
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNJ-87-4C4">
@@ -1166,6 +1179,7 @@
                         <outlet property="cameraView" destination="hVc-Ce-iDi" id="rSy-F7-09t"/>
                         <outlet property="directionLabel" destination="ZUm-Ds-EwW" id="3eg-2h-Du6"/>
                         <outlet property="downloadMediasBt" destination="nNJ-87-4C4" id="Y9p-0d-6on"/>
+                        <outlet property="navigateToCenterSwitch" destination="CUk-i9-jyw" id="y23-SW-FFW"/>
                         <outlet property="powerLabel" destination="Cc0-Ge-4OW" id="j4K-fB-VLu"/>
                         <outlet property="powerSlider" destination="LCp-Lz-nR0" id="Ong-Js-dXB"/>
                         <outlet property="stickyTimeTextField" destination="y09-KZ-avx" id="WSx-31-5SA"/>
