@@ -269,34 +269,33 @@ typedef enum ObservationLocation {
     
     if (xOffset < -40 && yOffset < -40) {
         self.directionLabel.text = @"Top Left";
-        self.observationLocation = TopLeft;
+        [self handleLocation:TopLeft];
     } else if (xOffset < -40 && yOffset > -40 && yOffset < 40) {
         self.directionLabel.text = @"Left";
-        self.observationLocation = Left;
+        [self handleLocation:Left];
     } else if (xOffset < -40 && yOffset > 40) {
         self.directionLabel.text = @"Bottom Left";
-        self.observationLocation = BottomLeft;
+        [self handleLocation:BottomLeft];
     } else if (xOffset > -40 && xOffset < 40 && yOffset < -40) {
         self.directionLabel.text = @"Top";
-        self.observationLocation = Top;
+        [self handleLocation:Top];
     } else if (xOffset > -40 && xOffset < 40 && yOffset > 40) {
         self.directionLabel.text = @"Bottom";
-        self.observationLocation = Bottom;
+        [self handleLocation:Bottom];
     } else if (xOffset > 40 && yOffset < -40) {
         self.directionLabel.text = @"Top Right";
-        self.observationLocation = TopRight;
+        [self handleLocation:TopRight];
     } else if (xOffset > 40 && yOffset > -40 && yOffset < 40) {
         self.directionLabel.text = @"Right";
-        self.observationLocation = Right;
+        [self handleLocation:Right];
     } else if (xOffset > 40 && yOffset > 40) {
         self.directionLabel.text = @"Bottom Right";
-        self.observationLocation = BottomRight;
+        [self handleLocation:BottomRight];
     } else {
         self.directionLabel.text = @"Center";
-        self.observationLocation = Center;
+        [self handleLocation:Center];
     }
-    [self handleLocation:self.observationLocation];
-    NSLog(@"\nxOffset: %f\nyOffset: %f", xOffset, yOffset);
+    //NSLog(@"\nxOffset: %f\nyOffset: %f", xOffset, yOffset);
     //NSLog(@"Cameraview centerX: %f\nCameraview centerY: %f", CGRectGetMidX(self.cameraView.layer.frame), CGRectGetMidY(self.cameraView.layer.frame));
 }
 
@@ -306,7 +305,8 @@ typedef enum ObservationLocation {
 
 
 - (void)handleLocation:(ObservationLocation)location {
-    if (!self.navigateToCenterSwitch.isOn) return;
+    if (self.observationLocation == location || !self.navigateToCenterSwitch.isOn) return;
+    self.observationLocation = location;
     NSLog(@"\nhandleLocation: %u", location);
     switch (location) {
         case TopLeft:
