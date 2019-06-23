@@ -21,6 +21,12 @@ typedef enum ObservationLocation {
     BottomRight
 } ObservationLocation;
 
+typedef enum ObservationDistance {
+    Far,
+    Acceptable,
+    Close
+} ObservationDistance;
+
 @interface MiniDroneVC ()<MiniDroneDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 
 @property (nonatomic, strong) UIAlertView *connectionAlertView;
@@ -48,9 +54,12 @@ typedef enum ObservationLocation {
 @property (weak, nonatomic) IBOutlet UITextField *stickyTimeTextField;
 
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 
 @property (nonatomic) ObservationLocation observationLocation;
 @property (weak, nonatomic) IBOutlet UISwitch *navigateToCenterSwitch;
+@property (nonatomic) ObservationDistance observationDistance;
+@property (weak, nonatomic) IBOutlet UISwitch *navigateToSafeDistanceSwitch;
 
 @end
 
@@ -255,6 +264,8 @@ typedef enum ObservationLocation {
         
         CGSize rectSize = CGSizeMake([maxX floatValue] - [minX floatValue], [maxY floatValue] - [minY floatValue]);
         NSLog(@"rect: %@", NSStringFromCGSize(rectSize));
+        
+//        [self determineDepthWith:rectSize];
 //        NSLog(@"Centerpoint: %@", NSStringFromCGPoint(polyCenter));
 //        NSLog(@"\nminX: %@\nmaxX: %@\nminY: %@\nmaxY: %@", minX, maxX, minY, maxY);
     }
@@ -302,15 +313,54 @@ typedef enum ObservationLocation {
     //NSLog(@"Cameraview centerX: %f\nCameraview centerY: %f", CGRectGetMidX(self.cameraView.layer.frame), CGRectGetMidY(self.cameraView.layer.frame));
 }
 
+- (void)determineDepthWith:(CGSize)size {
+    CGFloat maxSide = MAX(size.width, size.height);
+    if ((maxSide + 50) < 250) {
+        self.distanceLabel.text = @"Far";
+        [self handleDepth:Far];
+    } else if ((maxSide - 50) > 250) {
+        self.distanceLabel.text = @"Close";
+        [self handleDepth:Close];
+    } else {
+        self.distanceLabel.text = @"Acceptable";
+        [self handleDepth:Acceptable];
+    }
+}
+
 - (IBAction)navigationToCenterSwitchChanged:(id)sender {
     [self stopDrone];
 }
 
+- (IBAction)navigateToSafeDistanceSwitchChanged:(id)sender {
+    [self stopDrone];
+}
+
+- (void)handleDepth:(ObservationDistance)distance {
+    return;
+    if (self.observationDistance == distance || !self.navigateToSafeDistanceSwitch.isOn) return;
+    self.observationDistance = distance;
+    NSLog(@"\nhandleDistance: %u", distance);
+    [_miniDrone setFlag:1];
+    switch (distance) {
+        case Far:
+            [_miniDrone setPitch:20];
+            break;
+        case Acceptable:
+            [_miniDrone setPitch:0];
+            break;
+        case Close:
+            [_miniDrone setPitch:-20];
+            break;
+        default:
+            break;
+    }
+}
 
 - (void)handleLocation:(ObservationLocation)location {
     if (self.observationLocation == location || !self.navigateToCenterSwitch.isOn) return;
     self.observationLocation = location;
     NSLog(@"\nhandleLocation: %u", location);
+    [_miniDrone setFlag:1];
     switch (location) {
         case TopLeft:
             [_miniDrone setRoll:-20];
