@@ -252,6 +252,9 @@ typedef enum ObservationLocation {
         CGPoint polyCenter = CGPointMake(midX.floatValue, midY.floatValue);
         
         [self determinePositionWith:polyCenter];
+        
+        CGSize rectSize = CGSizeMake([maxX floatValue] - [minX floatValue], [maxY floatValue] - [minY floatValue]);
+        NSLog(@"rect: %@", NSStringFromCGSize(rectSize));
 //        NSLog(@"Centerpoint: %@", NSStringFromCGPoint(polyCenter));
 //        NSLog(@"\nminX: %@\nmaxX: %@\nminY: %@\nmaxY: %@", minX, maxX, minY, maxY);
     }
