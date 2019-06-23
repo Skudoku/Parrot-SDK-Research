@@ -63,11 +63,17 @@ typedef enum ObservationDistance {
 
 @end
 
-@implementation MiniDroneVC
+@implementation MiniDroneVC {
+    NSInteger locationMargin;
+    NSInteger distanceMargin;
+}
 
 -(void)viewDidLoad {
     [super viewDidLoad];
     _stateSem = dispatch_semaphore_create(0);
+    
+    locationMargin = 50;
+    distanceMargin = 50;
     
     _miniDrone = [[MiniDrone alloc] initWithService:_service];
     [_miniDrone setDelegate:self];
@@ -281,28 +287,28 @@ typedef enum ObservationDistance {
     CGFloat xOffset = point.x - CGRectGetMidX(self.cameraView.layer.frame);
     CGFloat yOffset = point.y - CGRectGetMidY(self.cameraView.layer.frame);
     
-    if (xOffset < -40 && yOffset < -40) {
+    if (xOffset < -locationMargin && yOffset < -locationMargin) {
         self.directionLabel.text = @"Top Left";
         [self handleLocation:TopLeft];
-    } else if (xOffset < -40 && yOffset > -40 && yOffset < 40) {
+    } else if (xOffset < -locationMargin && yOffset > -locationMargin && yOffset < locationMargin) {
         self.directionLabel.text = @"Left";
         [self handleLocation:Left];
-    } else if (xOffset < -40 && yOffset > 40) {
+    } else if (xOffset < -locationMargin && yOffset > locationMargin) {
         self.directionLabel.text = @"Bottom Left";
         [self handleLocation:BottomLeft];
-    } else if (xOffset > -40 && xOffset < 40 && yOffset < -40) {
+    } else if (xOffset > -locationMargin && xOffset < locationMargin && yOffset < -locationMargin) {
         self.directionLabel.text = @"Top";
         [self handleLocation:Top];
-    } else if (xOffset > -40 && xOffset < 40 && yOffset > 40) {
+    } else if (xOffset > -locationMargin && xOffset < locationMargin && yOffset > locationMargin) {
         self.directionLabel.text = @"Bottom";
         [self handleLocation:Bottom];
-    } else if (xOffset > 40 && yOffset < -40) {
+    } else if (xOffset > locationMargin && yOffset < -locationMargin) {
         self.directionLabel.text = @"Top Right";
         [self handleLocation:TopRight];
-    } else if (xOffset > 40 && yOffset > -40 && yOffset < 40) {
+    } else if (xOffset > locationMargin && yOffset > -locationMargin && yOffset < locationMargin) {
         self.directionLabel.text = @"Right";
         [self handleLocation:Right];
-    } else if (xOffset > 40 && yOffset > 40) {
+    } else if (xOffset > locationMargin && yOffset > locationMargin) {
         self.directionLabel.text = @"Bottom Right";
         [self handleLocation:BottomRight];
     } else {
@@ -315,10 +321,10 @@ typedef enum ObservationDistance {
 
 - (void)determineDepthWith:(CGSize)size {
     CGFloat maxSide = MAX(size.width, size.height);
-    if ((maxSide + 50) < 250) {
+    if ((maxSide + distanceMargin) < 250) {
         self.distanceLabel.text = @"Far";
         [self handleDepth:Far];
-    } else if ((maxSide - 50) > 250) {
+    } else if ((maxSide - distanceMargin) > 250) {
         self.distanceLabel.text = @"Close";
         [self handleDepth:Close];
     } else {
