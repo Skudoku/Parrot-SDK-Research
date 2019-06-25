@@ -271,7 +271,7 @@ typedef enum ObservationDistance {
         CGSize rectSize = CGSizeMake([maxX floatValue] - [minX floatValue], [maxY floatValue] - [minY floatValue]);
         NSLog(@"rect: %@", NSStringFromCGSize(rectSize));
         
-//        [self determineDepthWith:rectSize];
+        [self determineDepthWith:rectSize];
 //        NSLog(@"Centerpoint: %@", NSStringFromCGPoint(polyCenter));
 //        NSLog(@"\nminX: %@\nmaxX: %@\nminY: %@\nmaxY: %@", minX, maxX, minY, maxY);
     }
@@ -342,7 +342,6 @@ typedef enum ObservationDistance {
 }
 
 - (void)handleDepth:(ObservationDistance)distance {
-    return;
     if (self.observationDistance == distance || !self.navigateToSafeDistanceSwitch.isOn) return;
     self.observationDistance = distance;
     NSLog(@"\nhandleDistance: %u", distance);
